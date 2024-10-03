@@ -124,7 +124,7 @@ M.lsp_msg = function()
     return ""
   end
 
-  local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+  local spinners = { "┘", "┌", "┘", "┌", "┘", "┌", "┘", "┌" }
   local ms = vim.uv.hrtime() / 1e6
   local frame = math.floor(ms / 100) % #spinners
 
@@ -135,7 +135,7 @@ M.lsp = function()
   if rawget(vim, "lsp") and version >= 10 then
     for _, client in ipairs(vim.lsp.get_clients()) do
       if client.attached_buffers[M.stbufnr()] then
-        return (vim.o.columns > 100 and "   LSP ~ " .. client.name .. " ") or "   LSP "
+        return (vim.o.columns > 100 and "  LSP - " .. client.name .. " ") or " LSP "
       end
     end
   end
@@ -153,19 +153,19 @@ M.diagnostics = function()
   local hints = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.HINT })
   local info = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.INFO })
 
-  err = (err and err > 0) and ("%#St_lspError#" .. " " .. err .. " ") or ""
-  warn = (warn and warn > 0) and ("%#St_lspWarning#" .. " " .. warn .. " ") or ""
-  hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-  info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+  err = (err and err > 0) and ("%#St_lspError#" .. "E " .. err .. " ") or ""
+  warn = (warn and warn > 0) and ("%#St_lspWarning#" .. "W " .. warn .. " ") or ""
+  hints = (hints and hints > 0) and ("%#St_lspHints#" .. "H " .. hints .. " ") or ""
+  info = (info and info > 0) and ("%#St_lspInfo#" .. "i " .. info .. " ") or ""
 
   return " " .. err .. warn .. hints .. info
 end
 
 M.separators = {
-  default = { left = "", right = "" },
-  round = { left = "", right = "" },
-  block = { left = "█", right = "█" },
-  arrow = { left = "", right = "" },
+  default = { left = "", right = "" },
+  round = { left = "", right = "" },
+  block = { left = "", right = "" },
+  arrow = { left = "", right = "" },
 }
 
 return M

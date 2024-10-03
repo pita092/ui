@@ -9,7 +9,7 @@ M.mode = function()
 
   local modes = utils.modes
   local m = vim.api.nvim_get_mode().mode
-  return "%#St_" .. modes[m][2] .. "mode#" .. "  " .. modes[m][1] .. " "
+  return "%#St_" .. modes[m][2] .. "mode#" .. " ~ " .. modes[m][1] .. " "
 end
 
 M.file = function()
@@ -31,7 +31,7 @@ M["%="] = "%="
 
 M.cwd = function()
   local name = vim.uv.cwd()
-  name = "%#St_cwd# 󰉖 " .. (name:match "([^/\\]+)[/\\]*$" or name) .. " "
+  name = "%#St_cwd#  " .. (name:match "([^/\\]+)[/\\]*$" or name) .. " "
   return (vim.o.columns > 85 and name) or ""
 end
 
