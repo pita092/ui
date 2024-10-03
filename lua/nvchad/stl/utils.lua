@@ -56,8 +56,7 @@ M.modes = {
   ["i"] = { "INSERT", "Insert" },
   ["ic"] = { "INSERT (completion)", "Insert" },
   ["ix"] = { "INSERT completion", "Insert" },
-
-  ["t"] = { "TERMINAL", "Terminal" },
+["t"] = { "TERMINAL", "Terminal" },
 
   ["R"] = { "REPLACE", "Replace" },
   ["Rc"] = { "REPLACE (Rc)", "Replace" },
@@ -82,7 +81,7 @@ M.modes = {
 
 -- credits to ii14 for str:match func
 M.file = function()
-  local icon = "󰈚"
+  local icon = ""
   local path = vim.api.nvim_buf_get_name(M.stbufnr())
   local name = (path == "" and "Empty") or path:match "([^/\\]+)[/\\]*$"
 
@@ -105,10 +104,10 @@ M.git = function()
 
   local git_status = vim.b[M.stbufnr()].gitsigns_status_dict
 
-  local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-  local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
-  local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
-  local branch_name = " " .. git_status.head
+  local added = (git_status.added and git_status.added ~= 0) and (" /+/ " .. git_status.added) or ""
+  local changed = (git_status.changed and git_status.changed ~= 0) and (" /~/ " .. git_status.changed) or ""
+  local removed = (git_status.removed and git_status.removed ~= 0) and (" /-/ " .. git_status.removed) or ""
+  local branch_name = "|- " .. git_status.head
 
   return " " .. branch_name .. added .. changed .. removed
 end
